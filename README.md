@@ -1,4 +1,5 @@
 //Simple RDP Polyline
+
 This is a small C++ project that implements the Ramer–Douglas–Peucker
 algorithm for simplifying 2D polylines.  
 A small example is included that shows how a noisy set of room boundary
