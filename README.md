@@ -1,28 +1,26 @@
-// Simple RDP Polyline
+//Simple RDP Polyline
+This is a small C++ project that implements the Ramer–Douglas–Peucker
+algorithm for simplifying 2D polylines.  
+A small example is included that shows how a noisy set of room boundary
+points can be reduced to a clean outline.
 
-This is a small C++ project for simplifying 2D polylines using the
-Ramer–Douglas–Peucker algorithm.  
-It was written to better understand the algorithm and to test it inside
-AutoCAD using ObjectARX, with a demo on noisy room boundary points.
+//About the Algorithm
+The core idea is to keep only the points that significantly change the
+shape of the polyline.
+1. Take the first and last point of the segment.
+2. Measure how far each point deviates from the straight line between them.
+3. If the largest deviation is greater than a chosen tolerance `epsilon`,
+   that point is kept and the process is applied recursively.
+4. Otherwise, all intermediate points are removed.
 
-// About the Algorithm
+The tolerance `epsilon` has a major influence on the result:  
+small values preserve nearly all details, while larger values produce a
+much simpler outline.
 
-The idea is simple:
+//Files
+- `RDP_Arx.h` – declarations of the RDP functions (2D version)
+- `RDP_Arx.cpp` – implementation and a small test
+- `demo.gif` – short clip showing noisy points and the simplified outline
 
-1. Start with the first and last point of the polyline.
-2. Find the point in between that has the largest distance to this line.
-3. If that distance is larger than a tolerance `epsilon`, keep the point
-   and recursively process the two sub-segments.
-4. If the distance is not larger than `epsilon`, remove all points
-   between the two endpoints.
-
-The result is a simplified polyline that keeps the overall shape while
-reducing the number of vertices.
-
-// Files
-
-- `RDP_Arx.h` – declarations of the RDP functions (2D points)
-- `RDP_Arx.cpp` – implementation and an AutoCAD test command
-- `demo.gif` – short clip showing noisy points and the simplified room outline
-
+//Demo
 ![demo](demo.gif)
